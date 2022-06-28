@@ -2,7 +2,7 @@ import torchaudio
 from speechbrain.pretrained import SpeakerRecognition
 
 # Carga de archivo y normalizacion
-def _loadFile(filePath):
+def loadFile(filePath):
     fs_norm = 16000     # Frecuencia de sampleo necesaria para hacer la comparacion
     
     signal, fs = torchaudio.load(filePath)
@@ -18,7 +18,7 @@ def _loadFile(filePath):
 
     return signal
 
-def verifySpeaker(file1, file2):
+def verifySpeaker(audio1, audio2):
 
     #ECAPA-TDNN Model
     verification = SpeakerRecognition.from_hparams(source="speechbrain/spkrec-ecapa-voxceleb", savedir="pretrained_models/spkrec-ecapa-voxceleb")
@@ -27,8 +27,8 @@ def verifySpeaker(file1, file2):
     
     verify = lambda x, y: verification.verify_batch(x, y, threshold=TH)
 
-    audio1 = _loadFile(file1)
-    audio2 = _loadFile(file2)
+    # audio1 = loadFile(file1)
+    # audio2 = loadFile(file2)
 
     score, prediction = verify(audio1, audio2)
     
@@ -38,7 +38,7 @@ def verifySpeaker(file1, file2):
     return score, prediction
 
 
-if __name__ == "__main__":
-    print(verifySpeaker("audio_samples\Kevin-1.wav", "audio_samples\Kevin-2.wav"))
-    print(verifySpeaker("audio_samples\Sergio-1.mp3", "audio_samples\Sergio-2.mp3"))
-    print(verifySpeaker("audio_samples\Kevin-1.wav", "audio_samples\Sergio-1.mp3"))
+# if __name__ == "__main__":
+#     print(verifySpeaker("audio_samples\Kevin-1.wav", "audio_samples\Kevin-2.wav"))
+#     print(verifySpeaker("audio_samples\Sergio-1.mp3", "audio_samples\Sergio-2.mp3"))
+#     print(verifySpeaker("audio_samples\Kevin-1.wav", "audio_samples\Sergio-1.mp3"))
