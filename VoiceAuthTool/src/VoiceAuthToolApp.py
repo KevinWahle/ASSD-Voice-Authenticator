@@ -212,4 +212,3 @@ class VoiceAuthToolApp(QMainWindow, Ui_MainWindow):
                 self.recorder.setAudioSettings(self.encoder)
                 self.recorder.setOutputLocation(QtCore.QUrl.fromLocalFile(self.recPath))
                 self.recorder.record()
-

@@ -36,7 +36,3 @@ def verifySpeaker(audio1, audio2):
     prediction = prediction.item()
 
     return score, prediction
-
-
-
-    
